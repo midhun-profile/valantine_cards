@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Love Story | Valentine 2024</title>
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#f43f5e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIk91ciBMb3ZlIFN0b3J5IiwKICAic2hvcnRfbmFtZSI6ICJWYWxlbnRpbmUiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZjVmNyIsCiAgInRoZW1lX2NvbG9yIjogIiNmNDNmNWUiLAogICJpY29ucyI6IFt7ICJzcmMiOiAiaHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS81MTIvODMzLzgzMzQ3Mi5wbmciLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3BuZyIgfV0KfQ==">
+    
+    <!-- Tailwind and External Libs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600;800&family=Lora:italic,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --secondary: #fb7185;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .swiper {
+            width: 100%;
+            height: 100vh;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+        .gift-card {
+            width: 90%;
+            height: 75vh;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: white;
+            pointer-events: none;
+        }
+        .dating-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(244, 63, 94, 0.9);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+        .letter-font {
+            font-family: 'Lora', serif;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .heart-btn {
+            animation: heartbeat 1.5s infinite ease-in-out;
+        }
+        .special-bg {
+            background: linear-gradient(135deg, #f43f5e 0%, #881337 100%);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .letter-revealed .special-bg {
+            background: #fffafa;
+        }
+        .letter-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            color: #4c0519;
+            overflow-y: auto;
+        }
+        .letter-revealed .letter-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .letter-revealed .initial-content {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+        .initial-content {
+            transition: all 0.6s ease;
+        }
+        .ai-loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(244, 63, 94, 0.3);
+            border-radius: 50%;
+            border-top-color: #f43f5e;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Branding Section -->
+    <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-50 text-white pointer-events-none">
+        <div class="flex items-center gap-1">
+            <svg class="w-6 h-6 text-rose-500 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span class="font-black text-xl tracking-tighter text-rose-500 uppercase italic">To My Wifeee</span>
+        </div>
+    </div>
+
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <!-- Day 1 -->
+            <div class="swiper-slide">
+                <div class="gift-card">
+                    <span class="dating-label">Feb 7</span>
+                    <img class="card-image" src="https://images.unsplash.com/photo-1496062031456-07b8f162a322?q=80&w=600">
+                    <div class="card-overlay">
+                        <h2 class="text-3xl font-black italic">A Bloom for You</h2>
+                        <p class="cursive text-xl text-rose-300 mt-1">Where every petal whispers your name.</p>
+                        <p class="text-xs uppercase tracking-widest opacity-60 mt-2">Rose Day</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Day 2 -->
+            <div class="swiper-slide">
+                <div class="gift-card">
+                    <span class="dating-label">Feb 8</span>
+                    <img class="card-image" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600">
+                    <div class="card-overlay">
+                        <h2 class="text-3xl font-black italic">My Only Question</h2>
+                        <p class="cursive text-xl text-rose-300 mt-1">Will you let me love you forever?</p>
+                        <p class="text-xs uppercase tracking-widest opacity-60 mt-2">Propose Day</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Day 3 -->
+            <div class="swiper-slide">
+                <div class="gift-card">
+                    <span class="dating-label">Feb 9</span>
+                    <img class="card-image" src="https://images.unsplash.com/photo-1548907040-4ba421ee7b1e?q=80&w=600">
+                    <div class="card-overlay">
+                        <h2 class="text-3xl font-black italic">Sweetest Temptation</h2>
+                        <p class="cursive text-xl text-rose-300 mt-1">A treat for the one who makes life so sweet.</p>
+                        <p class="text-xs uppercase tracking-widest opacity-60 mt-2">Chocolate Day</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Day 4 -->
+            <div class="swiper-slide">
+                <div class="gift-card">
+                    <span class="dating-label">Feb 10</span>
+                    <img class="card-image" src="https://images.unsplash.com/photo-1559440666-374464bec53d?q=80&w=600">
+                    <div class="card-overlay">
+                        <h2 class="text-3xl font-black italic">Softest Affection</h2>
+                        <p class="cursive text-xl text-rose-300 mt-1">Tucking you in with a million tiny hugs.</p>
+                        <p class="text-xs uppercase tracking-widest opacity-60 mt-2">Teddy Day</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Day 5 -->
+            <div class="swiper-slide">
+                <div class="gift-card">
+                    <span class="dating-label">Feb 11</span>
+                    <img class="card-image" src="https://images.unsplash.com/photo-1516726817505-f5ed1756c121?q=80&w=600">
+                    <div class="card-overlay">
+                        <h2 class="text-3xl font-black italic">Forever Vow</h2>
+                        <p class="cursive text-xl text-rose-300 mt-1">I promise to be the anchor in your storm.</p>
+                        <p class="text-xs uppercase tracking-widest opacity-60 mt-2">Promise Day</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Day 6 -->
+            <div class="swiper-slide">
+                <div class="gift-card">
+                    <span class="dating-label">Feb 12</span>
+                    <img class="card-image" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600">
+                    <div class="card-overlay">
+                        <h2 class="text-3xl font-black italic">Soul's Shelter</h2>
+                        <p class="cursive text-xl text-rose-300 mt-1">Safe and sound within your arms.</p>
+                        <p class="text-xs uppercase tracking-widest opacity-60 mt-2">Hug Day</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Day 7 -->
+            <div class="swiper-slide">
+                <div class="gift-card">
+                    <span class="dating-label">Feb 13</span>
+                    <img class="card-image" src="https://images.unsplash.com/photo-1518895312237-a9e23508077d?q=80&w=600">
+                    <div class="card-overlay">
+                        <h2 class="text-3xl font-black italic">Silent Magic</h2>
+                        <p class="cursive text-xl text-rose-300 mt-1">A heartbeat felt against the lips.</p>
+                        <p class="text-xs uppercase tracking-widest opacity-60 mt-2">Kiss Day</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Page: Valentine's Day -->
+            <div class="swiper-slide" id="finalSlide">
+                <div class="gift-card special-bg flex flex-col items-center justify-center relative">
+                    
+                    <div class="initial-content flex flex-col items-center justify-center p-8 text-center text-white w-full h-full">
+                        <div class="dating-label bg-white text-rose-600">The Ultimate Choice</div>
+                        <div class="mb-6 relative">
+                            <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-2xl">
+                                 <img src="https://images.unsplash.com/photo-1518196775789-af999939215e?q=80&w=300" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute -bottom-2 -right-2 bg-rose-500 rounded-full p-2 shadow-xl heart-btn">
+                                <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            </div>
+                        </div>
+                        <h1 class="text-4xl font-black mb-2 uppercase italic tracking-tighter">Destiny Found</h1>
+                        <p class="cursive text-2xl mb-8 text-rose-100 italic">I’ve been waiting to say this...</p>
+                        <button id="giftBtn" class="bg-white text-rose-600 font-extrabold px-8 py-4 rounded-full shadow-xl active:scale-95 transition-transform uppercase text-sm tracking-widest">
+                            Open My Heart
+                        </button>
+                    </div>
+
+                    <!-- Letter Content -->
+                    <div class="letter-content text-left">
+                        <div class="mb-4 flex justify-between items-center">
+                            <button id="backBtn" class="p-2 -ml-2 text-rose-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                            </button>
+                            <!-- ✨ Audio Letter Reader ✨ -->
+                            <button id="ttsBtn" class="flex items-center gap-2 bg-rose-100 px-3 py-1 rounded-full text-rose-600 font-bold text-xs uppercase tracking-tighter">
+                                <span id="ttsStatus">✨ Play Audio</span>
+                            </button>
+                        </div>
+                        
+                        <div id="letterText">
+                            <h3 class="letter-font italic text-xl font-bold mb-3">To the Love of My Life,</h3>
+                            <div class="letter-font space-y-3 text-base leading-relaxed opacity-90">
+                                <p>I wanted to write you something that words can barely capture. From the moment we met, you've turned the ordinary into something magical.</p>
+                                <p>Looking back at this past week—from the first rose to today—I realize that every single day with you is a gift I cherish deeply.</p>
+                                <p>You are my best friend, my greatest adventure, and my favorite "swipe right." Thank you for making my heart skip a beat every time you walk into the room.</p>
+                                <p>I promise to love you not just today, but every day that follows. Happy Valentine's Day, my love.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <p class="cursive text-2xl text-rose-600">Eternally yours,</p>
+                            <p class="font-black text-rose-900 uppercase tracking-tighter text-sm">Me</p>
+                        </div>
+
+                        <div class="mt-auto pt-6 border-t border-rose-100 italic text-rose-400 text-xs text-center letter-font">
+                            Our Story Continues...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="fixed bottom-10 left-0 w-full flex justify-center items-center gap-8 z-50 pointer-events-none">
+            <button class="swiper-prev pointer-events-auto bg-white/10 backdrop-blur-md w-14 h-14 rounded-full flex items-center justify-center border border-white/20">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="bg-rose-500 w-16 h-16 rounded-full flex items-center justify-center shadow-xl border-4 border-black pointer-events-auto">
+                 <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <button class="swiper-next pointer-events-auto bg-white/10 backdrop-blur-md w-14 h-14 rounded-full flex items-center justify-center border border-white/20">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        const apiKey = ""; // Provided at runtime
+        const swiper = new Swiper(".mySwiper", {
+            effect: "cards",
+            grabCursor: true,
+            navigation: { nextEl: ".swiper-next", prevEl: ".swiper-prev" },
+            on: { slideChange: function() { if (this.activeIndex === 7) fireConfetti(); } }
+        });
+
+        const finalSlide = document.getElementById('finalSlide');
+        const giftBtn = document.getElementById('giftBtn');
+        const backBtn = document.getElementById('backBtn');
+        const ttsBtn = document.getElementById('ttsBtn');
+        
+        // ✨ POPPERS ON BUTTON CLICK ✨
+        giftBtn.addEventListener('click', () => {
+            finalSlide.classList.add('letter-revealed');
+            
+            // Initial blast
+            fireConfetti();
+            
+            // Side poppers for extra celebration
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#f43f5e', '#ffffff', '#fb7185', '#ffe4e6']
+                });
+            }, 250);
+        });
+
+        backBtn.addEventListener('click', () => {
+            finalSlide.classList.remove('letter-revealed');
+            if (currentAudio) currentAudio.pause();
+        });
+
+        // ✨ FEATURE: Gemini TTS Audio Letter ✨
+        let currentAudio = null;
+        ttsBtn.addEventListener('click', async () => {
+            const status = document.getElementById('ttsStatus');
+            if (currentAudio && !currentAudio.paused) {
+                currentAudio.pause();
+                status.innerText = "✨ Play Audio";
+                return;
+            }
+
+            status.innerHTML = '<span class="ai-loading"></span> Reading...';
+            const letterTextContent = document.getElementById('letterText').innerText;
+            const ttsPrompt = `Say warmly and lovingly: ${letterTextContent}`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: ttsPrompt }] }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } } }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    })
+                });
+                
+                const data = await response.json();
+                const base64Audio = data.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                
+                if (base64Audio) {
+                    const audioBlob = pcmToWavBlob(base64Audio, 24000);
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    currentAudio = new Audio(audioUrl);
+                    currentAudio.play();
+                    status.innerText = "⏸ Pause";
+                    currentAudio.onended = () => { status.innerText = "✨ Play Audio"; };
+                } else {
+                    status.innerText = "✨ Play Audio";
+                }
+            } catch (err) {
+                status.innerText = "✨ Play Audio";
+            }
+        });
+
+        function pcmToWavBlob(base64, sampleRate) {
+            const byteCharacters = atob(base64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) byteNumbers[i] = byteCharacters.charCodeAt(i);
+            const pcmData = new Uint8Array(byteNumbers);
+            const buffer = new ArrayBuffer(44 + pcmData.length);
+            const view = new DataView(buffer);
+            const writeString = (offset, string) => { for (let i = 0; i < string.length; i++) view.setUint8(offset + i, string.charCodeAt(i)); };
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + pcmData.length, true);
+            writeString(8, 'WAVE');
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(36, 'data');
+            view.setUint32(40, pcmData.length, true);
+            const finalUint8 = new Uint8Array(buffer);
+            finalUint8.set(pcmData, 44);
+            return new Blob([finalUint8], { type: 'audio/wav' });
+        }
+
+        function fireConfetti() {
+            const duration = 2 * 1000;
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#f43f5e', '#fb7185'] });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#f43f5e', '#fb7185'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+    </script>
+</body>
+</html>
